@@ -1,2 +1,7 @@
-# advent2015
-Advent of Code 2015 solutions
+# Advent of Code
+
+[Advent of Code 2015](adventofcode.com) solutions. 
+
+## License 
+
+MIT
