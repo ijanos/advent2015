@@ -29,13 +29,11 @@ def solver(n):
     command = rules[n]
     command = command.split()
     if len(command) == 1:
-        r = solve(command[0])
-        return r
+        return solve(command[0])
     if len(command) == 2:
         return do[command[0]](solve(command[1]))
     if len(command) == 3:
-        r = do[command[1]]((solve(command[0]), solve(command[2])))
-        return r 
+        return do[command[1]]((solve(command[0]), solve(command[2])))
 
 
 for line in fileinput.input():
