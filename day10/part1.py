@@ -13,7 +13,9 @@ def lookandsay(n):
     return "".join(["".join((str(x),y)) for (x,y) in acc])
 
 seed = "3113322113"
-for _ in range(40):
-    seed = lookandsay(seed)   
+for i in range(50):
+    seed = lookandsay(seed)
+    if i == 39:
+        print("Answer 1:", len(seed))
 
-print("Answer:", len(seed))
+print("Answer 2:", len(seed))    
