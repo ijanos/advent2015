@@ -1,4 +1,5 @@
 mod day1;
+mod day2;
 
 use std::env;
 
@@ -9,6 +10,7 @@ fn main() {
     } else {
         match args[1].as_ref() {
             "1" => day1::main(),
+            "2" => day2::main(),
             _ => println!("No such day")
         }
     }
