@@ -1,43 +1,24 @@
-use std::fs::File;
-use std::io::BufReader;
-use std::io::BufRead;
+use std::io;
+use std::io::prelude::*;
 
-fn part1() -> i32 {
-    let file = BufReader::new(File::open("input.txt").unwrap());
-    let mut floor:i32 = 0;
-    for line in file.lines() {
+pub fn main() {
+    let stdin = io::stdin();
+    let mut floor = 0;
+    let mut part2 = None;
+    let mut n = 1;
+    for line in stdin.lock().lines() {
         for c in line.unwrap().chars() {
             match c.to_string().as_ref() {
                 "(" => floor += 1,
                 ")" => floor -= 1,
                 _ => panic!()
             }
-        }
-    }
-    floor
-}
-
-fn part2() -> Option<i32> {
-    let file = BufReader::new(File::open("input.txt").unwrap());
-    let mut floor :i32 = 0;
-    let mut n :i32 = 1;
-    for line in file.lines() {
-        for c in line.unwrap().chars() {
-            match c.to_string().as_ref() {
-                "(" => floor += 1,
-                ")" => floor -= 1,
-                _ => panic!()
-            }
-            if floor == -1 {
-                return Some(n);
+            if floor == -1 && part2 == None {
+                part2 = Some(n);
             }
             n += 1;
         }
     }
-    None
-}
-
-pub fn main() {
-    println!("part 1: {}", part1());
-    println!("part 2: {}", part2().unwrap());
+    println!("part 1: {}", floor);
+    println!("part 2: {}", part2.unwrap());
 }
