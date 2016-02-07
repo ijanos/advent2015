@@ -8,9 +8,9 @@ pub fn main() {
     let mut n = 1;
     for line in stdin.lock().lines() {
         for c in line.unwrap().chars() {
-            match c.to_string().as_ref() {
-                "(" => floor += 1,
-                ")" => floor -= 1,
+            match c {
+                '(' => floor += 1,
+                ')' => floor -= 1,
                 _ => panic!()
             }
             if floor == -1 && part2 == None {
