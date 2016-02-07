@@ -7,6 +7,8 @@ use std::io::prelude::*;
 pub fn main() {
     let mut x = 0;
     let mut y = 0;
+    let mut rx = 0;
+    let mut ry = 0;
     let mut houses = HashSet::new();
     houses.insert((x,y));
 
