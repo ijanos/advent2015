@@ -1,6 +1,6 @@
 # Advent of Code 2015
 
-This repository contains solutions for [Advent of Code 2015](adventofcode.com)
+This repository contains solutions for [Advent of Code 2015](http://adventofcode.com)
 puzzles in directories organized by the programming language used. Puzzle texts
 and puzzle inputs can be found in the puzzles directory.
 
