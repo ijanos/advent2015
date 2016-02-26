@@ -5,13 +5,13 @@ const INPUT: &'static str = "bgvyzdsv";
 
 fn first_n_zeroes(zeroes: usize) -> usize {
     let mut md5hasher = Md5::new();
-    (0..).find(
-        |&i| {
+    (0..)
+        .find(|&i| {
             md5hasher.reset();
             md5hasher.input_str(&format!("{}{}", INPUT, i));
             md5hasher.result_str().chars().take(zeroes).all(|c| c == '0')
-        }
-    ).unwrap()
+        })
+        .unwrap()
 }
 
 pub fn main() {

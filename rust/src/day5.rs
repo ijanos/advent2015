@@ -13,7 +13,7 @@ fn part1_nice(input: &str) -> bool {
     if input.chars().filter(|c| VOWELS.contains(c)).count() < 3 {
         return false;
     }
-    if !input.chars().zip(input[1..].chars()).any(|(c1,c2)| c1 == c2) {
+    if !input.chars().zip(input[1..].chars()).any(|(c1, c2)| c1 == c2) {
         return false;
     }
     true
@@ -25,8 +25,10 @@ fn part2_nice(input: &str) -> bool {
     };
     let mut doubles: HashMap<(char, char), usize> = HashMap::new();
     for (i, (c1, c2)) in Zip::new((input.chars(), input[1..].chars())).enumerate() {
-        let j = doubles.entry((c1,c2)).or_insert(i);
-        if i > *j + 1 { return true }
+        let j = doubles.entry((c1, c2)).or_insert(i);
+        if i > *j + 1 {
+            return true;
+        }
     }
     false
 }
@@ -34,16 +36,20 @@ fn part2_nice(input: &str) -> bool {
 pub fn main() {
     let stdin = io::stdin();
     let (result1, result2) = stdin.lock()
-                               .lines()
-                               .map(|line| line.unwrap())
-                               .fold((0,0), |(part1, part2), line| {
-                                    let part1 = if part1_nice(&line) {
-                                        part1 + 1
-                                    } else {part1};
-                                    let part2 = if part2_nice(&line) {
-                                        part2 + 1
-                                    } else {part2};
-                                    (part1, part2)
-                                });
+                                  .lines()
+                                  .map(|line| line.unwrap())
+                                  .fold((0, 0), |(part1, part2), line| {
+                                      let part1 = if part1_nice(&line) {
+                                          part1 + 1
+                                      } else {
+                                          part1
+                                      };
+                                      let part2 = if part2_nice(&line) {
+                                          part2 + 1
+                                      } else {
+                                          part2
+                                      };
+                                      (part1, part2)
+                                  });
     println!("Part 1: {}\nPart 2: {}", result1, result2);
 }

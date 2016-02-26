@@ -11,7 +11,7 @@ pub fn main() {
             match c {
                 '(' => floor += 1,
                 ')' => floor -= 1,
-                _ => panic!()
+                _ => panic!(),
             }
             if floor == -1 && part2 == None {
                 part2 = Some(n);

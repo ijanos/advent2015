@@ -7,7 +7,7 @@ use std::collections::HashMap;
 #[derive(Debug, Clone)]
 enum Wire {
     Named(String),
-    Signal(u32)
+    Signal(u32),
 }
 
 #[derive(Debug, Clone)]
@@ -18,7 +18,7 @@ enum Connection {
         b: Wire,
     },
     NOT(Wire),
-    Direct(Wire)
+    Direct(Wire),
 }
 
 #[derive(Debug, Clone)]
@@ -31,36 +31,56 @@ enum Operation {
 
 struct Circuit {
     connections: HashMap<String, Connection>,
-    cache: HashMap<String, u32>
+    cache: HashMap<String, u32>,
 }
 
 impl FromStr for Connection {
     type Err = &'static str;
     fn from_str(input: &str) -> Result<Connection, Self::Err> {
         let rule: Vec<&str> = input.split(' ').collect();
-        let wire = |s: &str| match s.parse::<u32>() {
-            Ok(x) =>  Wire::Signal(x),
-            Err(_) => Wire::Named(s.to_owned())
+        let wire = |s: &str| {
+            match s.parse::<u32>() {
+                Ok(x) => Wire::Signal(x),
+                Err(_) => Wire::Named(s.to_owned()),
+            }
         };
         let conn: Connection = match rule.len() {
             1 => Connection::Direct(wire(rule[0])),
             2 => Connection::NOT(Wire::Named(rule[1].to_owned())),
-            3 => match rule[1] {
-                "AND"    => Connection::BinaryGate{ a: wire(rule[0]),
-                                                    b: wire(rule[2]),
-                                                    op: Operation::AND },
-                "OR"     => Connection::BinaryGate{ a: wire(rule[0]),
-                                                    b: wire(rule[2]),
-                                                    op: Operation::OR },
-                "LSHIFT" => Connection::BinaryGate{ a: wire(rule[0]),
-                                                    b: wire(rule[2]),
-                                                    op: Operation::LSHIFT },
-                "RSHIFT" => Connection::BinaryGate{ a: wire(rule[0]),
-                                                    b: wire(rule[2]),
-                                                    op: Operation::RSHIFT },
-                _ => return Err("invalid operation")
-            },
-            _ => return Err("invalid connections string")
+            3 => {
+                match rule[1] {
+                    "AND" => {
+                        Connection::BinaryGate {
+                            a: wire(rule[0]),
+                            b: wire(rule[2]),
+                            op: Operation::AND,
+                        }
+                    }
+                    "OR" => {
+                        Connection::BinaryGate {
+                            a: wire(rule[0]),
+                            b: wire(rule[2]),
+                            op: Operation::OR,
+                        }
+                    }
+                    "LSHIFT" => {
+                        Connection::BinaryGate {
+                            a: wire(rule[0]),
+                            b: wire(rule[2]),
+                            op: Operation::LSHIFT,
+                        }
+                    }
+                    "RSHIFT" => {
+                        Connection::BinaryGate {
+                            a: wire(rule[0]),
+                            b: wire(rule[2]),
+                            op: Operation::RSHIFT,
+                        }
+                    }
+                    _ => return Err("invalid operation"),
+                }
+            }
+            _ => return Err("invalid connections string"),
         };
         Ok(conn)
     }
@@ -75,7 +95,10 @@ impl FromStr for Circuit {
             let conn = try!(rule[0].parse::<Connection>());
             curcuit.insert(rule[1].to_owned(), conn);
         }
-        Ok(Circuit{connections: curcuit, cache: HashMap::new()})
+        Ok(Circuit {
+            connections: curcuit,
+            cache: HashMap::new(),
+        })
     }
 }
 
@@ -86,18 +109,22 @@ impl Circuit {
         }
         let connection = self.connections.get(id).unwrap().clone();
         let value = {
-            let mut unwire = |w: &Wire| match *w {
-                Wire::Signal(a) => a,
-                Wire::Named(ref name) => self.eval(name)
+            let mut unwire = |w: &Wire| {
+                match *w {
+                    Wire::Signal(a) => a,
+                    Wire::Named(ref name) => self.eval(name),
+                }
             };
             match connection {
                 Connection::Direct(ref wire) => unwire(wire),
                 Connection::NOT(ref wire) => !unwire(wire),
-                Connection::BinaryGate{ref op, ref a, ref b} => match *op {
-                    Operation::AND    => unwire(a) &  unwire(b),
-                    Operation::OR     => unwire(a) |  unwire(b),
-                    Operation::LSHIFT => unwire(a) << unwire(b),
-                    Operation::RSHIFT => unwire(a) >> unwire(b),
+                Connection::BinaryGate{ref op, ref a, ref b} => {
+                    match *op {
+                        Operation::AND => unwire(a) & unwire(b),
+                        Operation::OR => unwire(a) | unwire(b),
+                        Operation::LSHIFT => unwire(a) << unwire(b),
+                        Operation::RSHIFT => unwire(a) >> unwire(b),
+                    }
                 }
             }
         };

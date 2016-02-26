@@ -26,7 +26,7 @@ fn main() {
             "6" => day6::main(),
             "7" => day7::main(),
             "8" => day8::main(),
-            _ => println!("No such day")
+            _ => println!("No such day"),
         }
     }
 
