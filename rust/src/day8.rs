@@ -11,11 +11,16 @@ pub fn main() {
     let stdin = io::stdin();
     let mut chr = 0;
     let mut len = 0;
+    let mut escaped = 0;
     for line in stdin.lock().lines() {
         let line = line.unwrap();
         len += line.len();
+        escaped += 2;
         let mut state = State::Normal;
         for c in line.chars() {
+            if c == '"' || c == '\\' {
+                escaped += 1
+            };
             state = match state {
                 State::Normal => {
                     chr += 1;
@@ -43,5 +48,6 @@ pub fn main() {
         }
         chr -= 2; // substract the open and close quotes
     }
-    println!("{}", len - chr);
+    println!("Part 1: {}", len - chr);
+    println!("Part 2: {}", escaped);
 }
