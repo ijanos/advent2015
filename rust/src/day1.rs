@@ -29,3 +29,13 @@ pub fn main() {
     println!("part 1: {}", part1);
     println!("part 2: {}", part2);
 }
+
+#[test]
+fn test() {
+    use std::fs::File;
+    use std::io::BufReader;
+    let f = File::open("../puzzles/day01/input.txt").unwrap();
+    let (part1, part2) = day1(BufReader::new(f));
+    assert_eq!(part1, 138);
+    assert_eq!(part2, 1771);
+}
