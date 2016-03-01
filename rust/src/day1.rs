@@ -1,12 +1,13 @@
 use std::io;
 use std::io::prelude::*;
 
-pub fn main() {
-    let stdin = io::stdin();
-    let mut floor = 0;
+fn day1<R>(input: R) -> (i32, u32)
+    where R: BufRead
+{
     let mut part2 = None;
+    let mut floor = 0;
     let mut n = 1;
-    for line in stdin.lock().lines() {
+    for line in input.lines() {
         for c in line.unwrap().chars() {
             match c {
                 '(' => floor += 1,
@@ -19,6 +20,12 @@ pub fn main() {
             n += 1;
         }
     }
-    println!("part 1: {}", floor);
-    println!("part 2: {}", part2.unwrap());
+    (floor, part2.unwrap())
+}
+
+pub fn main() {
+    let stdin = io::stdin();
+    let (part1, part2) = day1(stdin.lock());
+    println!("part 1: {}", part1);
+    println!("part 2: {}", part2);
 }
