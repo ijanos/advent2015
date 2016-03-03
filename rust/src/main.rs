@@ -1,5 +1,6 @@
 extern crate crypto;
 extern crate itertools;
+extern crate permutohedron;
 
 mod day1;
 mod day2;
