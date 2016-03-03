@@ -1,7 +1,7 @@
 use std::io;
 use std::io::prelude::*;
 
-fn day2<R> (input: R) -> (i32, i32)
+fn day2<R>(input: R) -> (i32, i32)
     where R: BufRead
 {
     let mut part1 = 0;
