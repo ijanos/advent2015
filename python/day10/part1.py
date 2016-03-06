@@ -16,4 +16,4 @@ for i in range(50):
     if i == 39:
         print("Answer 1:", len(seed))
 
-print("Answer 2:", len(seed))    
+print("Answer 2:", len(seed))
