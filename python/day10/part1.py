@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
 
-from itertools import chain
-
 def lookandsay(n):
     acc = [(1,n[0])]
     for c in n[1:]:
