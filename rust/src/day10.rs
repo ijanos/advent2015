@@ -1,9 +1,9 @@
 use itertools::Itertools;
 
+fn day10(input: &str) -> (usize, usize) {
 
-pub fn main() {
     let mut i = 1;
-    let mut next = "3113322113".to_owned();
+    let mut next = String::from(input);
     let mut part1 = 0;
     let mut part2 = 0;
     loop {
@@ -26,5 +26,17 @@ pub fn main() {
             break;
         }
     }
+    return (part1, part2);
+}
+
+pub fn main() {
+    let (part1, part2) = day10("3113322113");
     println!("Part 1: {}\nPart 2: {}", part1, part2);
+}
+
+#[test]
+fn test() {
+    let (part1, part2) = day10("3113322113");
+    assert_eq!(part1, 329356);
+    assert_eq!(part2, 4666278);
 }
