@@ -1,20 +1,17 @@
 use itertools::Itertools;
 
 fn day10(input: &str) -> (usize, usize) {
-
     let mut i = 1;
     let mut next = String::from(input);
     let mut part1 = 0;
     let mut part2 = 0;
     loop {
-        next = next.chars()
-                   .group_by(|&x| x)
-                   .map(|(n, l)| {
-                       let mut s = l.len().to_string();
-                       s.push(n);
-                       s
-                   })
-                   .collect::<String>();
+        let mut buf = String::new();
+        for (number, list) in next.chars().group_by(|&x| x) {
+            buf.push_str(&list.len().to_string());
+            buf.push(number);
+        }
+        next = buf;
         if i == 40 {
             part1 = next.len();
         }
