@@ -6,7 +6,8 @@ fn day10(input: &str) -> (usize, usize) {
     let mut part1 = 0;
     let mut part2 = 0;
     loop {
-        let mut buf = String::new();
+        // worst case size is double the digits
+        let mut buf = String::with_capacity(next.len() * 2);
         for (number, list) in next.chars().group_by(|&x| x) {
             buf.push_str(&list.len().to_string());
             buf.push(number);
