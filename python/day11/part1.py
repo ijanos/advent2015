@@ -14,7 +14,7 @@ def increment(pw):
 def valid(pw):
     if 'i' in pw or 'o' in pw or 'l' in pw:
         return False
-    
+
     triplet = False
     for i in range(len(pw) - 2):
         if pw[i:i+3] in abc:
@@ -22,7 +22,7 @@ def valid(pw):
             break
     if not triplet:
         return False
-    
+
     doubles = 0
     for c,l in groupby(pw):
         if len(list(l)) > 1:
@@ -37,10 +37,10 @@ pw = "vzbxkghb"
 
 while not valid(pw):
     pw = increment(pw)
-    
+
 print("Answer 1:", pw)
 
-pw = increment(pw) 
+pw = increment(pw)
 while not valid(pw):
     pw = increment(pw)
 
