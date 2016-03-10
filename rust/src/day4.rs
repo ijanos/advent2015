@@ -18,3 +18,9 @@ pub fn main() {
     println!("Part 1: {}", first_n_zeroes(5));
     println!("Part 2: {}", first_n_zeroes(6));
 }
+
+#[test]
+fn test() {
+    assert_eq!(first_n_zeroes(5), 254575);
+    assert_eq!(first_n_zeroes(6), 1038736);
+}
